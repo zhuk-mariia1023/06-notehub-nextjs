@@ -1,10 +1,10 @@
 'use client';
 
-type Props = {
+type ErrorNoteProps = {
   error: Error;
   reset: () => void;
 };
-const ErrorComponent = ({ error }: Props) => {
+const ErrorComponent = ({ error }: ErrorNoteProps) => {
   return (
     <>
       <p>Could not fetch the list of notes. {error.message}</p>

@@ -11,6 +11,11 @@ const instance = axios.create({
   },
 });
 
+export const fetchNoteById = async (id: number) => {
+  const { data } = await instance.get<Note>(`/notes/${id}`);
+  return data;
+};
+
 export const fetchNotes = async (
   page: number,
   search = '',
