@@ -14,10 +14,18 @@ import type { Note } from '@/types/note';
 
 import css from './NotesPage.module.css';
 
-export default function NotesClient() {
-  const [searchQuery, setSearchQuery] = useState('');
+type NotesClientProps = {
+  initialQuery: string;
+  initialPage: number;
+};
+
+export default function NotesClient({
+  initialQuery,
+  initialPage,
+}: NotesClientProps) {
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [debouncedQuery] = useDebounce(searchQuery, 500);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(initialPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, isError } = useQuery<{
@@ -26,7 +34,7 @@ export default function NotesClient() {
   }>({
     queryKey: ['notes', debouncedQuery, page],
     queryFn: () => fetchNotes(page, debouncedQuery),
-    placeholderData: keepPreviousData,
+    placeholderData: keepPreviousData
   });
 
   const handleSearch = (value: string) => {

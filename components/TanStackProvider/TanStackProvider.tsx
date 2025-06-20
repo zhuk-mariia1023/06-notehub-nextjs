@@ -8,7 +8,7 @@ type TanStackProviderProps = {
 };
 
 const TanStackProvider = ({ children }: TanStackProviderProps) => {
-  const [queryClient] = useState(new QueryClient());
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
