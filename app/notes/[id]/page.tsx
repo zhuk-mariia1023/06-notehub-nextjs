@@ -6,18 +6,15 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 
-type NoteDetailsProps = {
-  params: { id: string };
-};
-
-const NoteDetails = async ({ params }: NoteDetailsProps) => {
-  const id = Number(params.id);
+const NoteDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  const noteId = Number(id);
 
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['note', id],
-    queryFn: () => fetchNoteById(id),
+    queryKey: ['note', noteId],
+    queryFn: () => fetchNoteById(noteId),
   });
 
   return (
